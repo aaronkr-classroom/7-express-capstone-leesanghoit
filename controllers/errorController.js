@@ -7,6 +7,10 @@ const httpStatus = require("http-status-codes");
  * Listing 11.2 (p. 168)
  */
 
+exports.logErrors = (error, req, res, next) => {
+    console.error(error.stack);
+    next(error);
+}
 /**
  * Listing 12.11 (p. 184)
  * 에러 처리 라우트 추가
@@ -16,7 +20,9 @@ exports.pageNotFoundError = (req, res) => {
     res.status(errorCode);
     // res.send(`${errorCode} | The resource does not exist!`);
     res.render("error");   
-}; // @TODO: 404 상태 코드로 모든 에러 처리. 404.html 파일의 콘텐츠 전송
+}; 
+
+// @TODO: 404 상태 코드로 모든 에러 처리. 404.html 파일의 콘텐츠 전송
 exports.internalServerError = (error, req, res, next) => {
     let errorCode = httpStatus.INTERNAL_SERVER_ERROR; // 500
     console.log(`ERROR occurred: ${error.stack}`);

@@ -11,13 +11,9 @@ const port = 3000,
     app = express();
 
 app.use(express.static("public"));
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || port);
+    
 
-
-
-app.get("/", (req, res) => {
-    res.send("Welcome to Confetti Cuisine!");
-});
 
 /**
  * Listing 12.7 (p. 179)
@@ -42,6 +38,7 @@ app.use(express.json());
  * Listing 12.6 (p. 178)
  * 각 페이지 및 요청 타입을 위한 라우트 추가
  */
+app.get("/", homeController.showIndex);
 app.get("/courses", homeController.showCourses);
 app.get("/contact", homeController.showSignUp);
 app.get("/contact", homeController.postedContactForm);
